@@ -49,10 +49,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 
     @Bean
     public GrantedAuthoritiesMapper authoritiesMapper() {
-        SimpleAuthorityMapper authorityMapper = new SimpleAuthorityMapper();
-        authorityMapper.setConvertToLowerCase(true);
-        authorityMapper.setDefaultAuthority("USER");
-        return authorityMapper;
+        return new SimpleAuthorityMapper();
     }
 
     @Override
@@ -60,7 +57,7 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
         http.csrf()
             .disable()
             .authorizeRequests()
-            .antMatchers("/", "/h2-console/*", "/swagger-ui.html", "/index", "/index.html").permitAll()
+            .antMatchers("/", "/h2-console/*", "/swagger-ui.html", "/index", "/index.html", "/user/unsuspend").permitAll()
             .anyRequest()
             .authenticated()
             .and()

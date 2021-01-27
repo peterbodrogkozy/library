@@ -1,12 +1,7 @@
 package com.epam.training.library.service;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
-@Validated
 public interface GenericBusinessService<T, ID> {
 
 	JpaRepository<T, ID> getRepository();
@@ -15,15 +10,15 @@ public interface GenericBusinessService<T, ID> {
         return getRepository().findAll();
     }
     
-    default T findById(@NotNull ID id) {
-        return getRepository().findById(id).orElseThrow(NullPointerException::new);  //TODO: Custom expection class
+    default T findById(ID id) {
+        return getRepository().findById(id).orElseThrow(IllegalArgumentException::new);  //TODO: Custom expection class
     }
     
-    default T save(@NotNull @Valid T t) {
+    default T save(T t) {
         return getRepository().save(t);
     }
 
-    default void remove(@NotNull T t) {
+    default void remove(T t) {
     	getRepository().delete(t);
     }
 }

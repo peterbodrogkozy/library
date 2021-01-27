@@ -4,15 +4,16 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.epam.training.library.model.User;
+import com.epam.training.library.model.Borrow;
 import com.epam.training.library.service.GenericBusinessService;
 
 @RestController
-@RequestMapping("/librarian/users")
+@RequestMapping("/librarian/borrows")
 @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
-public class UserManagerController extends AbstractRestController<User, Long> {
+public class BorrowManagerController extends AbstractRestController<Borrow, Long>{
 	
-    public UserManagerController(GenericBusinessService<User, Long> userService) {
-    	super(userService);
+    public BorrowManagerController(GenericBusinessService<Borrow, Long> borrowService) {
+    	super(borrowService);
     }
+
 }

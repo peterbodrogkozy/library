@@ -2,14 +2,12 @@ package com.epam.training.library.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -19,7 +17,7 @@ public class User implements BusinessEntity<Long>, Serializable {
 	private static final long serialVersionUID = -4340600080692791262L;
 
 	@Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, name = "ID")
     private Long id;
 
@@ -32,12 +30,14 @@ public class User implements BusinessEntity<Long>, Serializable {
     @Column(nullable = false, name = "FULL_NAME")
     private String fullName;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate creationDate;
-
-    public User() {
-        creationDate = LocalDate.now();
-    }
+    @Column(nullable = false, name = "EMAIL_ADDRESS")
+    private String emailAddress;
+    
+    @Column(nullable = false, name = "ACTIVE")
+    private boolean active;
+    
+    @Column(nullable = false, name = "ADMIN")
+    private boolean admin;
 
     public String getPassword() {
         return password;
@@ -55,7 +55,15 @@ public class User implements BusinessEntity<Long>, Serializable {
         this.fullName = fullName;
     }
 
-    @Override
+    public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	@Override
     public Long getId() {
         return id;
     }
@@ -72,15 +80,23 @@ public class User implements BusinessEntity<Long>, Serializable {
         this.userName = name;
     }
 
-    public LocalDate getCreationDate() {
-        return creationDate;
-    }
+    public boolean isActive() {
+		return active;
+	}
 
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
-    }
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
-    @Override
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -88,13 +104,12 @@ public class User implements BusinessEntity<Long>, Serializable {
         return Objects.equals(id, person.id) &&
                 Objects.equals(userName, person.userName) &&
                 Objects.equals(password, person.password) &&
-                Objects.equals(fullName, person.fullName) &&
-                Objects.equals(creationDate, person.creationDate);
+                Objects.equals(fullName, person.fullName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userName, password, fullName, creationDate);
+        return Objects.hash(id, userName, password, fullName);
     }
 
     @Override
@@ -104,7 +119,6 @@ public class User implements BusinessEntity<Long>, Serializable {
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", fullName='" + fullName + '\'' +
-                ", creationDate=" + creationDate +
                 '}';
     }
 }

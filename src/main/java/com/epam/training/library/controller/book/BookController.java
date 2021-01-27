@@ -2,14 +2,12 @@ package com.epam.training.library.controller.book;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epam.training.library.model.Book;
@@ -23,16 +21,15 @@ import com.epam.training.library.service.subscription.SubscriptionService;
 @RequestMapping("/books")
 public class BookController {
 
-	@Autowired
 	private BookService bookService;
-	
-	@Autowired
 	private BorrowService borrowService;
-	
-	@Autowired
 	private SubscriptionService subscriptionService;
 	
-	//TODO: validator
+	public BookController(BookService bookService, BorrowService borrowService, SubscriptionService subscriptionService) {
+		this.bookService = bookService;
+		this.borrowService = borrowService;
+		this.subscriptionService = subscriptionService;
+	}
 	
     @GetMapping
     public List<Book> getAllBooks() {
@@ -50,12 +47,12 @@ public class BookController {
     }
 
     @PostMapping("/borrows/{id}/extend")
-    public @ResponseBody void extend(@PathVariable Long borrowId, @AuthenticationPrincipal User user) {
+    public void extend(@PathVariable Long borrowId, @AuthenticationPrincipal User user) {
     	borrowService.extend(borrowId, user);
     }
     
     @PostMapping("/{id}/subscribe")
-    public @ResponseBody void subscribe(@PathVariable Long bookId, @AuthenticationPrincipal User user) {
+    public void subscribe(@PathVariable Long bookId, @AuthenticationPrincipal User user) {
     	subscriptionService.subscribe(bookId, user);
     }
 }

@@ -2,34 +2,30 @@ package com.epam.training.library.security.auth;
 
 
 import com.epam.training.library.model.User;
-import com.epam.training.library.security.model.AuthenticationGroup;
+import com.epam.training.library.security.model.AuthGroup;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 public class UserPrincipal implements UserDetails {
 
 	private static final long serialVersionUID = 5812265126493595069L;
 	
 	private final User user;
-    private final List<AuthenticationGroup> authenticationGroups;
+    private final AuthGroup authGroup;
 
-    public UserPrincipal(User user, List<AuthenticationGroup> authenticationGroups) {
+    public UserPrincipal(User user, AuthGroup authGroup) {
         super();
         this.user = user;
-        this.authenticationGroups = authenticationGroups;
+        this.authGroup = authGroup;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authenticationGroups.stream()
-                                   .map(AuthenticationGroup::getAuthGroup)
-                                   .map(SimpleGrantedAuthority::new)
-                                   .collect(Collectors.toSet());
+        return Set.of(new SimpleGrantedAuthority(authGroup.getValue()));
     }
 
     @Override
@@ -39,7 +35,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.user.getPassword();
+        return this.user.getUserName();
     }
 
     @Override
@@ -49,7 +45,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return user.isActive();
     }
 
     @Override

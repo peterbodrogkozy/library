@@ -4,15 +4,19 @@ import com.epam.training.library.model.Borrow;
 import com.epam.training.library.model.User;
 import com.epam.training.library.repository.BorrowRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BorrowServiceImpl implements BorrowService {
 	
-	@Autowired
 	private BorrowRepository borrowRepository;
+	
+	public BorrowServiceImpl(BorrowRepository borrowRepository) {
+		this.borrowRepository = borrowRepository;
+	}
 	
     @Override
     public JpaRepository<Borrow, Long> getRepository() {
@@ -23,4 +27,9 @@ public class BorrowServiceImpl implements BorrowService {
     public void extend(Long borrowId, User user) {
     	
     }
+
+	@Override
+	public List<Borrow> getBorrowsForUser(User user) {
+		return borrowRepository.findAllByUser(user);
+	}
 }

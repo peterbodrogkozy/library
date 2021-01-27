@@ -5,4 +5,8 @@ import com.epam.training.library.service.GenericBusinessService;
 
 public interface UserService extends GenericBusinessService<User, Long> {
 	
+	User getByUserName(String userName);
+	void update(User userInRequest, User existingUser);
+	void suspend(String userName);
+	void unSuspend(String userName, String password);
 }
