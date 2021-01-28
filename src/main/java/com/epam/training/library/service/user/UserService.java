@@ -7,6 +7,6 @@ public interface UserService extends GenericBusinessService<User, Long> {
 	
 	User getByUserName(String userName);
 	void update(User userInRequest, User existingUser);
-	void suspend(String userName);
+	void suspend(Long userId);
 	void unSuspend(String userName, String password);
 }

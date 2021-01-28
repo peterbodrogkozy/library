@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
 	List<Book> findByIdIn(List<Long> bookIds);
+	List<Book> findByTitleContainingIgnoreCase(String title);
 }

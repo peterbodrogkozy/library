@@ -18,10 +18,3 @@ spring:
     password: test
     initialize: true
     data:classpath: data.sql
-
-# Swagger Documentation
-swagger:
-  service:
-    version: "1.0.0"
-    title: ${spring.application.name}
-    description: "Skeleton app swagger"

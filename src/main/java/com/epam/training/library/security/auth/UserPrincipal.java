@@ -27,6 +27,10 @@ public class UserPrincipal implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Set.of(new SimpleGrantedAuthority(authGroup.getValue()));
     }
+    
+    public Long getId() {
+    	return this.user.getId();
+    }
 
     @Override
     public String getPassword() {

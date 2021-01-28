@@ -26,19 +26,16 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getByUserName(String userName) {
-		return getActiveUserByUserName(userName);
+		return userRepository.findByUserNameAndActiveTrue(userName).orElseThrow(
+				() -> new UsernameNotFoundException("User not found or suspended: " + userName));
 	}
 
 	@Override
-	public void suspend(String userName) {
-		User user = getActiveUserByUserName(userName);
+	public void suspend(Long userId) {
+		User user = userRepository.findByIdAndActiveTrue(userId).orElseThrow(
+				() -> new UsernameNotFoundException("UserId not found or suspended: " + userId));
 		user.setActive(false);
 		userRepository.save(user);
-	}
-	
-	private User getActiveUserByUserName(String userName) {
-		return userRepository.findByUserNameAndActiveTrue(userName).orElseThrow(
-				() -> new UsernameNotFoundException("User not found or suspended: " + userName));
 	}
 	
 	@Override 

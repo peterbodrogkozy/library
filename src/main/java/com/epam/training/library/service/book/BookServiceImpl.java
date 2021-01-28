@@ -6,7 +6,6 @@ import com.epam.training.library.repository.BookRepository;
 import com.epam.training.library.service.borrow.BorrowService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 public class BookServiceImpl implements BookService {
 	
 	private BorrowService borrowService;
-	
 	private BookRepository bookRepository;
 	
 	public BookServiceImpl(BorrowService borrowService, BookRepository bookRepository) {
@@ -30,8 +28,8 @@ public class BookServiceImpl implements BookService {
     }
     
     @Override
-    public Optional<Book> search(String author, String title) {
-    	return Optional.empty();
+    public List<Book> search(String title) {
+    	return bookRepository.findByTitleContainingIgnoreCase(title);
     }
 
 	@Override
