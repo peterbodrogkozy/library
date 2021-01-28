@@ -24,7 +24,7 @@ public class Book implements BusinessEntity<Long>, Serializable {
     @Column(unique = true, nullable = false, name = "TITLE")
     private String title;
 
-    @Column(unique = true, nullable = false, name = "AMOUNT")
+    @Column(nullable = false, name = "AMOUNT")
     private Integer amount;
 
     public Book() { }
@@ -34,6 +34,7 @@ public class Book implements BusinessEntity<Long>, Serializable {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

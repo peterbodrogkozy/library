@@ -43,6 +43,11 @@ public class Subscription implements BusinessEntity<Long>, Serializable {
     public Long getId() {
         return id;
     }
+    
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Book getBook() {
         return book;

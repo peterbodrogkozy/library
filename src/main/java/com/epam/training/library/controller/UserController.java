@@ -4,7 +4,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +38,7 @@ public class UserController {
         userService.update(userInRequest, existingUser);
     }
 
-    @PostMapping("/suspend")
+    @PutMapping("/suspend")
     @PreAuthorize("#id == authentication.principal.id")
     public void suspend(@PathVariable(value = "id") Long id) {
     	userService.suspend(id);
@@ -47,7 +46,7 @@ public class UserController {
     	SecurityContextHolder.getContext().setAuthentication(null);
     }
     
-	@PostMapping
+	@PutMapping
     public void unsuspend(@RequestBody UserNamePasswordPair userNamePasswordPair) {
     	userService.unSuspend(userNamePasswordPair.getUserName(), userNamePasswordPair.getPassword());
     }

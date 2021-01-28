@@ -54,6 +54,11 @@ public class Borrow implements BusinessEntity<Long>, Serializable {
     public Long getId() {
         return id;
     }
+    
+    @Override
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public LocalDate getStartDate() {
         return startDate;

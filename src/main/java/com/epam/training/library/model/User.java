@@ -68,6 +68,7 @@ public class User implements BusinessEntity<Long>, Serializable {
         return id;
     }
 
+	@Override
     public void setId(Long id) {
         this.id = id;
     }

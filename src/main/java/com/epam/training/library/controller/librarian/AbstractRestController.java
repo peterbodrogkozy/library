@@ -1,5 +1,6 @@
 package com.epam.training.library.controller.librarian;
 
+import com.epam.training.library.model.BusinessEntity;
 import com.epam.training.library.service.GenericBusinessService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @PreAuthorize("hasRole('ROLE_LIBRARIAN')")
-public abstract class AbstractRestController<T, ID extends Serializable> {
+public abstract class AbstractRestController<T extends BusinessEntity<ID>, ID extends Serializable> {
 
     private final GenericBusinessService<T, ID> businessService;
 
@@ -47,7 +48,8 @@ public abstract class AbstractRestController<T, ID extends Serializable> {
         T object = businessService.findById(id);
 
         try {
-            BeanUtils.copyProperties(object, body);
+            BeanUtils.copyProperties(body, object);
+            object.setId(id);
         }
         catch (Exception e) {
             //TODO: fix exception
