@@ -30,7 +30,7 @@ public class BorrowServiceImpl implements BorrowService {
     	if(borrow.getUser().getId() == user.getId()) {
         	borrowRepository.save(borrow.extend());	
     	} else {
-    		new IllegalArgumentException("Borrow with id:" + borrowId + "belongs to another user.");
+    		throw new IllegalArgumentException("Borrow with id:" + borrowId + "belongs to another user.");
     	}
     }
 
