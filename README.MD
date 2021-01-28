@@ -12,9 +12,9 @@
 
 Username | Password | Role | ID |
 | :---: | :---: | :---: | :---: |
-test | test | USER |  1
-lib | test | LIBRARIAN | 2 
-test01 | test | USER |  3
+lib | test | LIBRARIAN |  1
+test| test | USER | 2 
+test2 | test | USER |  3
 
 # Development
 ## Building
