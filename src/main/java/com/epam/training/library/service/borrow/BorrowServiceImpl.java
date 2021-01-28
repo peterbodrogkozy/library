@@ -25,7 +25,13 @@ public class BorrowServiceImpl implements BorrowService {
     
     @Override
     public void extend(Long borrowId, User user) {
+    	Borrow borrow = borrowRepository.findById(borrowId).orElseThrow(() -> new IllegalArgumentException("No borrow found with id:" + borrowId));
     	
+    	if(borrow.getUser().getId() == user.getId()) {
+        	borrowRepository.save(borrow.extend());	
+    	} else {
+    		new IllegalArgumentException("Borrow with id:" + borrowId + "belongs to another user.");
+    	}
     }
 
 	@Override

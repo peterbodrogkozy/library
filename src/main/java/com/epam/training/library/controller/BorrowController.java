@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +33,7 @@ public class BorrowController {
     	return borrowService.getBorrowsForUser(user);
     }
 
-    @PostMapping("/borrows/{borrowId}/extend")
+    @PutMapping("/borrows/{borrowId}/extend")
     public void extend(@PathVariable(value = "userId") Long userId, @PathVariable(value = "borrowId") Long borrowId) {
     	User user = userService.findById(userId);
     	borrowService.extend(borrowId, user);

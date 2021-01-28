@@ -75,4 +75,9 @@ public class Borrow implements BusinessEntity<Long>, Serializable {
     public User getUser() {
         return user;
     }
+
+    public Borrow extend() {
+    	this.endDate = this.endDate.plusMonths(1);
+    	return this;
+    }
 }
