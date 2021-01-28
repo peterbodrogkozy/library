@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -25,10 +28,12 @@ public class Subscription implements BusinessEntity<Long>, Serializable {
     
     @ManyToOne
     @JoinColumn(name = "USER_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
     
     @ManyToOne
     @JoinColumn(name = "BOOK_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Book book;
 
     public Subscription() {

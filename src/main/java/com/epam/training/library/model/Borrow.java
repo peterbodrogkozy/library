@@ -2,6 +2,8 @@ package com.epam.training.library.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
@@ -38,9 +40,11 @@ public class Borrow implements BusinessEntity<Long>, Serializable {
     
     @ManyToOne
     @JoinColumn(name = "USER_ID")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
     
     @OneToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Book book;
 
     public Borrow() {

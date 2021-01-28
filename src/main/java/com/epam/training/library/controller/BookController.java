@@ -31,7 +31,7 @@ public class BookController {
     }
      
     @GetMapping("user/{userId}/books")
-    @PreAuthorize("#id == authentication.principal.id")
+    @PreAuthorize("#userId == authentication.principal.id")
     @ResponseBody
     public List<Book> getBooks(@PathVariable(value = "userId") Long userId) {
         User user = userService.findById(userId);

@@ -2,7 +2,6 @@ package com.epam.training.library.controller.librarian;
 
 import com.epam.training.library.service.GenericBusinessService;
 import org.springframework.beans.BeanUtils;
-import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,12 +37,12 @@ public abstract class AbstractRestController<T, ID extends Serializable> {
         return businessService.findById(id);
     }
 
-    @PostMapping(consumes={MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping
     public void save(@RequestBody T body) {
         businessService.save(body);
     }
 
-    @PutMapping(value = "/{id}", consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PutMapping(value = "/{id}")
     public void update(@PathVariable ID id, @RequestBody T body){
         T object = businessService.findById(id);
 

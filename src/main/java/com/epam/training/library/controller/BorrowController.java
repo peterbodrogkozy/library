@@ -16,7 +16,7 @@ import com.epam.training.library.service.user.UserService;
 
 @RestController
 @RequestMapping("/user/{userId}")
-@PreAuthorize("#id == authentication.principal.id")
+@PreAuthorize("#userId == authentication.principal.id")
 public class BorrowController {
 
 	private BorrowService borrowService;
